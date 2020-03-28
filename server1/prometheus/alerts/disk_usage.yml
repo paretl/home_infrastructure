@@ -1,0 +1,11 @@
+groups:
+- name: Storage
+  rules:
+  - alert: DiskUsage
+    expr: ((node_filesystem_size{mountpoint="/"} - node_filesystem_free{mountpoint="/"} ) / node_filesystem_size{mountpoint="/"} * 100) > 75
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "{{$labels.instance}}: High Disk usage detected"
+      description: "{{$labels.instance}}: Disk usage is above 75% (current value is: {{ $value }})."
