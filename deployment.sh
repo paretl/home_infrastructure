@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 set -e
@@ -9,9 +8,9 @@ cd "${BASEDIR}" || exit
 deploy() {
     SERVER=$1
     FILE_DESTINATION="/home/lparet/infrastructure"
-    rsync -avr "${BASEDIR}/${SERVER}/" "${SERVER}:${FILE_DESTINATION}"
-    ssh "${SERVER}" chmod 700 "${FILE_DESTINATION}"/start.sh
-    ssh "${SERVER}" "${FILE_DESTINATION}"/start.sh
+    rsync -avr "${BASEDIR}/${SERVER}/" lparet@"${SERVER}:${FILE_DESTINATION}"
+    ssh lparet@"${SERVER}" chmod 700 "${FILE_DESTINATION}"/start.sh
+    ssh lparet@"${SERVER}" "${FILE_DESTINATION}"/start.sh
 }
 
 SERVER_TO_DEPLOY='all'
@@ -24,10 +23,10 @@ if [ "$1" ]; then
     fi
 fi
 
-# Get bash methods repository
-bash <(curl -s https://raw.githubusercontent.com/DataDome/bash-methods/master/prepare.sh)
-# Source .env file
-source ./bash-methods/env-file/source-dot-env-file.sh
+# Source the env file if it exists
+if [ -f "${BASEDIR}/.env" ]; then
+    source "${BASEDIR}/.env"
+fi
 
 printf 'Prepare configuration files.\n'
 ALERTMANAGER_TEMPLATE_FILE="${BASEDIR}/server1/alertmanager/alertmanager.yml.template"
@@ -42,6 +41,9 @@ sed \
     "s|PUSHOVER_USER_KEY|$PUSHOVER_USER_KEY|g; \
     s|PUSHOVER_TOKEN|$PUSHOVER_TOKEN|g" \
     "${ALERTMANAGER_TEMPLATE_FILE}" > ${ALERTMANAGER_FILE}
+
+: ${GITHUB_ACCESS_TOKEN?No GITHUB_ACCESS_TOKEN}
+echo GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN} > "${BASEDIR}/server2/.env"
 
 printf 'Deploy servers.\n'
 if [ "${SERVER_TO_DEPLOY}" = "all" ]; then
