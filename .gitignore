@@ -1,0 +1,8 @@
+# AlertManager file
+server1/alertmanager/alertmanager.yml
+
+# Bash methods repository
+bash-methods/
+
+# .env file
+.env

@@ -1,0 +1,11 @@
+groups:
+- name: CPU
+  rules:
+  - alert: CPUUsage
+    expr: (100 - (avg by (instance) (irate(node_cpu{mode="idle"}[1m])) * 100)) > 75
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "{{$labels.instance}}: High CPU usage detected"
+      description: "{{$labels.instance}}: CPU usage is above 75% (current value is: {{ $value }})."
