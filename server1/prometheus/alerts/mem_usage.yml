@@ -1,0 +1,11 @@
+groups:
+- name: RAM
+  rules:
+  - alert: RAMUsage
+    expr: (((node_memory_MemTotal-node_memory_MemFree-node_memory_Cached)/(node_memory_MemTotal)*100)) > 75
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "{{$labels.instance}}: High RAM usage detected"
+      description: "{{$labels.instance}}: RAM usage is above 75% (current value is: {{ $value }})."
