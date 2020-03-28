@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  # Github runner service
+  github-runner:
+    image: tcardonne/github-runner:v1.2.0
+    container_name: github-runner
+    restart: always
+    environment:
+      RUNNER_NAME: server2-runner
+      GITHUB_ACCESS_TOKEN: ${GITHUB_ACCESS_TOKEN}
+      RUNNER_REPOSITORY_URL: https://github.com/paretl/home_infrastructure
+    volumes:
+      - /home/lparet/.ssh/id_rsa:/root/.ssh/id_rsa
+      - /var/lib/docker/:/var/lib/docker:ro
+
+  # NodeExporter service
+  nodeexporter:
+    image: prom/node-exporter:v1.0.0-rc.0
+    container_name: nodeexporter
+    restart: always
+
+  # cAdvisor service
+  cadvisor:
+    image: google/cadvisor:v0.33.0
+    container_name: cadvisor
+    restart: always
+    environment:
+      VIRTUAL_HOST: cadvisor.louisparet.co
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
