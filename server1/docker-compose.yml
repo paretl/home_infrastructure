@@ -1,0 +1,78 @@
+version: '3.7'
+
+services:
+  # Nginx Proxy service
+  nginx-proxy:
+    image: jwilder/nginx-proxy:alpine
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      # I don't use SSL because my internet provider doesn't allow me to use port 443 (SFR)
+      # - "443:443"
+    volumes:
+      - ./nginx/nginx-vhost:/etc/nginx/vhost.d
+      - ./nginx/nginx-html:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  # Jenkins service
+  jenkins:
+    image: jenkins/jenkins:2.228-alpine
+    container_name: jenkins
+    restart: always
+    ports:
+      # Open ports 50000 for Jenkins agents communication
+      - "50000:50000"
+    environment:
+      VIRTUAL_HOST: jenkins.louisparet.co
+      VIRTUAL_PORT: 8080
+
+  # Prometheus service
+  prometheus:
+    image: prom/prometheus:v2.17.1
+    container_name: prometheus
+    restart: always
+    environment:
+      VIRTUAL_HOST: prometheus.louisparet.co
+      VIRTUAL_PORT: 9090
+    volumes:
+      - ./prometheus:/etc/prometheus
+
+  # AlertManager service
+  alertmanager:
+    image: prom/alertmanager:v0.20.0
+    container_name: alertmanager
+    restart: always
+    environment:
+      VIRTUAL_HOST: alertmanager.louisparet.co
+      VIRTUAL_PORT: 9093
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+
+  # Grafana service
+  grafana:
+    image: grafana/grafana:6.7.1
+    container_name: grafana
+    restart: always
+    environment:
+      VIRTUAL_HOST: grafana.louisparet.co
+
+  # NodeExporter service
+  nodeexporter:
+    image: prom/node-exporter:v1.0.0-rc.0
+    container_name: nodeexporter
+    restart: always
+
+  # cAdvisor service
+  cadvisor:
+    image: google/cadvisor:v0.33.0
+    container_name: cadvisor
+    restart: always
+    environment:
+      VIRTUAL_HOST: cadvisor.louisparet.co
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
