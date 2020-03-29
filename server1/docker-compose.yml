@@ -76,3 +76,13 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
+
+  # File Browser service
+  filebrowser:
+    image: filebrowser/filebrowser:v2.1.0
+    container_name: filebrowser
+    restart: always
+    environment:
+      VIRTUAL_HOST: filebrowser.louisparet.co
+    volumes:
+      - ${HOME}:/srv

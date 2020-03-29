@@ -38,6 +38,7 @@ It contains:
 - **NodeExporter** to expose server system metrics.
 - **cAdvisor** to expose docker system metrics.
 - **Nginx Proxy** as a proxy to redirect HTTP requests.
+- **Filebrowser** to have a file managing interface.
 
 The code is located in the directory **server1/**.
 
