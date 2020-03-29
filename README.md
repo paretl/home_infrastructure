@@ -8,6 +8,15 @@ I have 2 servers:
 
 I installed 2 Debian Desktop on it to simplify the configuration for the first setup.
 
+## How to use
+
+You can take piece of code for your scripts or you can use this repository as it currently exists.
+
+The only script to modify is `deployment.sh`:
+- Remove tests of environment variables if you don't want to use **Pushover** and **GitHub Actions**
+- Change hostnames of servers and directory names.
+Launch this script.
+
 ## Access
 
 I use the domain **louisparet.co** for my web applications. But I don't own this domain and I'll never want it.
@@ -48,6 +57,10 @@ The code is located in the directory **server2/**.
 
 - **Github** to store my code and to use Github Actions.
 - **Pushover** to receive monitoring alerts as a notification on my phone.
+
+## Deployment pipeline
+
+Each commit on master trigger a deployment on the infrastructure on **GitHub Actions** by using the runner on **server2**.
 
 ## Scripts
 
