@@ -23,6 +23,7 @@ services:
     ports:
       # Open ports 50000 for Jenkins agents communication
       - "50000:50000"
+      - "8080:8080"
     environment:
       VIRTUAL_HOST: jenkins.louisparet.co
       VIRTUAL_PORT: 8080

@@ -35,3 +35,17 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
+
+  # Jenkins JNLP agent service
+  jenkins-agent:
+    image: jenkins/jnlp-slave:4.0.1-1-alpine
+    container_name: jenkins-agent
+    restart: always
+    environment:
+      JENKINS_URL: http://server1:8080
+      JENKINS_TUNNEL: server1:50000
+      JENKINS_SECRET: ${JENKINS_SECRET}
+      JENKINS_AGENT_NAME: server2-agent
+      JENKINS_AGENT_WORKDIR: /home/jenkins
+    volumes:
+      - /home/lparet/.ssh/id_rsa:/home/jenkins/.ssh/id_rsa

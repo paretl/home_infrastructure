@@ -35,6 +35,8 @@ ALERTMANAGER_FILE="${BASEDIR}/server1/alertmanager/alertmanager.yml"
 # Check if environment variables exist
 : ${PUSHOVER_USER_KEY?No PUSHOVER_USER_KEY}
 : ${PUSHOVER_TOKEN?No PUSHOVER_TOKEN}
+: ${GITHUB_ACCESS_TOKEN?No GITHUB_ACCESS_TOKEN}
+: ${JENKINS_SECRET?No JENKINS_SECRET}
 
 # Change values in AlertManager file
 sed \
@@ -42,8 +44,8 @@ sed \
     s|PUSHOVER_TOKEN|$PUSHOVER_TOKEN|g" \
     "${ALERTMANAGER_TEMPLATE_FILE}" > ${ALERTMANAGER_FILE}
 
-: ${GITHUB_ACCESS_TOKEN?No GITHUB_ACCESS_TOKEN}
 echo GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN} > "${BASEDIR}/server2/.env"
+echo JENKINS_SECRET=${JENKINS_SECRET} >> "${BASEDIR}/server2/.env"
 
 printf 'Deploy servers.\n'
 if [ "${SERVER_TO_DEPLOY}" = "all" ]; then

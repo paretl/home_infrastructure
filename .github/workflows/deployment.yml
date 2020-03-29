@@ -33,7 +33,11 @@ jobs:
       env:
         PUSHOVER_USER_KEY: ${{ secrets.PUSHOVER_USER_KEY }}
         PUSHOVER_TOKEN: ${{ secrets.PUSHOVER_TOKEN }}
+        GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_ACCESS_TOKEN }}
+        JENKINS_SECRET: ${{ secrets.JENKINS_SECRET }}
       run: |
         export PUSHOVER_USER_KEY=${PUSHOVER_USER_KEY}
         export PUSHOVER_TOKEN=${PUSHOVER_TOKEN}
+        export GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN}
+        export JENKINS_SECRET=${JENKINS_SECRET}
         ./deployment.sh
