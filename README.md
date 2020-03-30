@@ -39,6 +39,9 @@ It contains:
 - **cAdvisor** to expose docker system metrics.
 - **Nginx Proxy** as a proxy to redirect HTTP requests.
 - **Filebrowser** to have a file managing interface.
+- **Graylog** to centralize logs.
+- **Elasticsearch** to index logs of Graylog in MongoDB.
+- **MongoDB** to store log of Graylog.
 
 The code is located in the directory **server1/**.
 
