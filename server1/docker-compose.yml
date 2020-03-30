@@ -17,7 +17,7 @@ services:
 
   # Jenkins service
   jenkins:
-    image: jenkins/jenkins:2.228-alpine
+    image: jenkins/jenkins:2.229-alpine
     container_name: jenkins
     restart: always
     ports:
@@ -87,3 +87,50 @@ services:
       VIRTUAL_HOST: filebrowser.louisparet.co
     volumes:
       - ${HOME}:/srv
+
+  # MongoDB service
+  mongodb:
+    image: mongo:4.2.5-bionic
+    container_name: mongodb
+    restart: always
+
+  # Elasticsearch service
+  elasticsearch:
+    image: elasticsearch:6.8.7
+    container_name: elasticsearch
+    restart: always
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=localhost
+      - network.host=0.0.0.0
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+
+  # Graylog service
+  graylog:
+    image: graylog/graylog:3.2.4-1
+    container_name: graylog
+    restart: always
+    environment:
+      # CHANGE ME (must be at least 16 characters)!
+      GRAYLOG_PASSWORD_SECRET: 'nBkq!^SV8adUD45YDZLl7Wh4s5KvX'
+      # Password: 4o5P@j5Ylx@Bz!^YZfbRQ6eoaou3r^
+      GRAYLOG_ROOT_PASSWORD_SHA2: 29abad5c1667c35853466225217eef6fb43b0da1e8f472a1e2f0e21f43338907
+      GRAYLOG_HTTP_EXTERNAL_URI: http://graylog.louisparet.co/
+      # Proxy
+      VIRTUAL_HOST: graylog.louisparet.co
+      VIRTUAL_PORT: 9000
+    links:
+      - mongodb:mongo
+      - elasticsearch
+    depends_on:
+      - mongodb
+      - elasticsearch
+    ports:
+      # Syslog TCP
+      - 1514:1514
+      # Syslog UDP
+      - 1514:1514/udp
+      # GELF TCP
+      - 12201:12201
+      # GELF UDP
+      - 12201:12201/udp
