@@ -1,0 +1,20 @@
+groups:
+- name: Jenkins
+  rules:
+  - alert: NodeOnline
+    expr: jenkins_node_online_value < 2
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "{{$labels.instance}}: Low number of node connected to Jenkins"
+      description: "{{$labels.instance}}: Number of node connected to Jenkins is above 2 (current value is: {{ $value }})."
+  
+  - alert: JenkinsHealth
+    expr: jenkins_health_check_score < 1
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "{{$labels.instance}}: Bad Jenkins health"
+      description: "{{$labels.instance}}: Jenkins is in a bad state."
