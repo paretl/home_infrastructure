@@ -6,7 +6,9 @@ BASEDIR=$(dirname "$(readlink -f -- "$0")")
 cd "${BASEDIR}" || exit
 
 # Up all services
-docker-compose up -d
+docker-compose up \
+    --remove-orphans \
+    -d
 
 # Restart Prometheus and AlertManager to always apply configuration changes
 # To change by API Call /-/reload
