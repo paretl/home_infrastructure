@@ -15,7 +15,7 @@ rule_files:
   - "alerts/up.yml"
   - "alerts/cpu_usage.yml"
   - "alerts/mem_usage.yml"
-  - "alerts/disk_usage.yml"
+  - "alerts/jenkins.yml"
 
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.

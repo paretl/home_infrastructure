@@ -39,9 +39,6 @@ It contains:
 - **cAdvisor** to expose docker system metrics.
 - **Nginx Proxy** as a proxy to redirect HTTP requests.
 - **Filebrowser** to have a file managing interface.
-- **Graylog** to centralize logs.
-- **Elasticsearch** to index logs of Graylog in MongoDB.
-- **MongoDB** to store log of Graylog.
 
 The code is located in the directory **server1/**.
 
@@ -71,6 +68,10 @@ Each commit on master trigger a deployment on the infrastructure on **GitHub Act
 For my deployment scripts, I mainly use:
 - **Docker** and **Docker Compose** to easily deploy my applications in Docker containers.
 - **rsync** to send files to my servers.
+
+## History
+
+04/05/2020: I've used Graylog to centralize my logs but it is too resource intensive. I'll find an alertnative.
 
 ## Contributions
 
