@@ -17,7 +17,7 @@ services:
 
   # Jenkins service
   jenkins:
-    image: jenkins/jenkins:2.229-alpine
+    image: jenkins/jenkins:2.237-alpine
     container_name: jenkins
     restart: always
     ports:
@@ -36,7 +36,7 @@ services:
 
   # Prometheus service
   prometheus:
-    image: prom/prometheus:v2.17.1
+    image: prom/prometheus:v2.18.1
     container_name: prometheus
     restart: always
     environment:
@@ -72,13 +72,13 @@ services:
 
   # NodeExporter service
   nodeexporter:
-    image: prom/node-exporter:v1.0.0-rc.0
+    image: prom/node-exporter:v1.0.0-rc.1
     container_name: nodeexporter
     restart: always
 
   # cAdvisor service
   cadvisor:
-    image: google/cadvisor:v0.33.0
+    image: google/cadvisor:v0.36.0
     container_name: cadvisor
     restart: always
     environment:

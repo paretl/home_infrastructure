@@ -3,7 +3,7 @@ version: '3.7'
 services:
   # Github runner service
   github-runner:
-    image: tcardonne/github-runner:v1.2.0
+    image: tcardonne/github-runner:v1.3.0
     container_name: github-runner
     restart: always
     environment:
@@ -16,7 +16,7 @@ services:
 
   # NodeExporter service
   nodeexporter:
-    image: prom/node-exporter:v1.0.0-rc.0
+    image: prom/node-exporter:v1.0.0-rc.1
     container_name: nodeexporter
     restart: always
     ports:
@@ -24,7 +24,7 @@ services:
 
   # cAdvisor service
   cadvisor:
-    image: google/cadvisor:v0.33.0
+    image: google/cadvisor:v0.36.0
     container_name: cadvisor
     restart: always
     ports:
@@ -38,7 +38,7 @@ services:
 
   # Jenkins JNLP agent service
   jenkins-agent:
-    image: jenkins/jnlp-slave:4.0.1-1-alpine
+    image: jenkins/jnlp-slave:4.3-4-alpine
     container_name: jenkins-agent
     restart: always
     environment:
