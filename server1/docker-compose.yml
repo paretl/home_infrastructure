@@ -78,7 +78,7 @@ services:
 
   # cAdvisor service
   cadvisor:
-    image: google/cadvisor:v0.36.0
+    image: google/cadvisor:v0.33.0
     container_name: cadvisor
     restart: always
     environment:
