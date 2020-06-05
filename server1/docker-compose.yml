@@ -17,7 +17,7 @@ services:
 
   # Jenkins service
   jenkins:
-    image: jenkins/jenkins:2.237-alpine
+    image: jenkins/jenkins:2.239-alpine
     container_name: jenkins
     restart: always
     ports:

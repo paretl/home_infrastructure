@@ -49,3 +49,5 @@ services:
       JENKINS_AGENT_WORKDIR: /home/jenkins
     volumes:
       - /home/lparet/.ssh/id_rsa:/home/jenkins/.ssh/id_rsa
+      - /home/lparet/wordpress-backup:/home/jenkins/wordpress-backup
+      - /home/lparet/database-backup:/home/jenkins/database-backup

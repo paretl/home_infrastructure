@@ -8,7 +8,7 @@ cd "${BASEDIR}" || exit
 deploy() {
     SERVER=$1
     FILE_DESTINATION="/home/lparet/infrastructure"
-    rsync -avr "${BASEDIR}/${SERVER}/" lparet@"${SERVER}:${FILE_DESTINATION}"
+    rsync -e "ssh -o StrictHostKeyChecking=no" -avr "${BASEDIR}/${SERVER}/" lparet@"${SERVER}:${FILE_DESTINATION}"
     ssh lparet@"${SERVER}" chmod 700 "${FILE_DESTINATION}"/start.sh
     ssh lparet@"${SERVER}" "${FILE_DESTINATION}"/start.sh
 }
