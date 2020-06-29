@@ -3,7 +3,7 @@ version: '3.7'
 services:
   # Github runner service
   github-runner:
-    image: tcardonne/github-runner:v1.3.0
+    image: tcardonne/github-runner:v1.4.0
     container_name: github-runner
     restart: always
     environment:
@@ -16,7 +16,7 @@ services:
 
   # NodeExporter service
   nodeexporter:
-    image: prom/node-exporter:v1.0.0-rc.1
+    image: prom/node-exporter:v1.0.1
     container_name: nodeexporter
     restart: always
     ports:
