@@ -28,6 +28,7 @@ jobs:
       run: |
         apt update -y
         apt install -y rsync
+        apt install -y ssh-client
 
     # Runs a single command using the runners shell
     - name: Launch deployment
