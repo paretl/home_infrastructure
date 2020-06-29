@@ -25,7 +25,9 @@ jobs:
     # Runs a single command using the runners shell
     - name: Install Rsync
       shell: bash
-      run: apt install -y rsync
+      run: |
+        apt update -y
+        apt install -y rsync
 
     # Runs a single command using the runners shell
     - name: Launch deployment
