@@ -17,7 +17,7 @@ services:
 
   # Jenkins service
   jenkins:
-    image: jenkins/jenkins:2.242-alpine
+    image: jenkins/jenkins:2.257-alpine
     container_name: jenkins
     restart: always
     ports:
@@ -36,7 +36,7 @@ services:
 
   # Prometheus service
   prometheus:
-    image: prom/prometheus:v2.19.2
+    image: prom/prometheus:v2.21.0
     container_name: prometheus
     restart: always
     environment:
@@ -64,9 +64,11 @@ services:
 
   # Grafana service
   grafana:
-    image: grafana/grafana:7.0.4
+    image: grafana/grafana:7.2.0
     container_name: grafana
     restart: always
+    volumes:
+      - grafana-storage:/var/lib/grafana
     environment:
       VIRTUAL_HOST: grafana.louisparet.co
 
@@ -78,7 +80,7 @@ services:
 
   # cAdvisor service
   cadvisor:
-    image: google/cadvisor:v0.33.0
+    image: gcr.io/google-containers/cadvisor:v0.36.0
     container_name: cadvisor
     restart: always
     environment:
@@ -92,10 +94,13 @@ services:
 
   # File Browser service	
   filebrowser:
-    image: filebrowser/filebrowser:v2.3.0-alpine
+    image: filebrowser/filebrowser:v2.7.0-alpine
     container_name: filebrowser
     restart: always
     environment:
       VIRTUAL_HOST: filebrowser.louisparet.co
     volumes:
       - ${HOME}:/srv
+
+volumes:
+  grafana-storage:
