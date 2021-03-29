@@ -17,7 +17,7 @@ services:
 
   # Jenkins service
   jenkins:
-    image: jenkins/jenkins:2.262-alpine
+    image: jenkins/jenkins:2.268-alpine
     container_name: jenkins
     restart: always
     ports:
@@ -36,7 +36,7 @@ services:
 
   # Prometheus service
   prometheus:
-    image: prom/prometheus:v2.21.0
+    image: prom/prometheus:v2.23.0
     container_name: prometheus
     restart: always
     environment:
@@ -64,13 +64,14 @@ services:
 
   # Grafana service
   grafana:
-    image: grafana/grafana:7.2.0
+    image: grafana/grafana:7.3.4
     container_name: grafana
     restart: always
     volumes:
       - grafana-storage:/var/lib/grafana
     environment:
       VIRTUAL_HOST: grafana.louisparet.co
+      GF_INSTALL_PLUGINS: grafana-github-datasource
 
   # NodeExporter service
   nodeexporter:
@@ -94,7 +95,7 @@ services:
 
   # File Browser service	
   filebrowser:
-    image: filebrowser/filebrowser:v2.7.0-alpine
+    image: filebrowser/filebrowser:v2.9.0-alpine
     container_name: filebrowser
     restart: always
     environment:
